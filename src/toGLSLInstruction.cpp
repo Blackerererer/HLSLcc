@@ -3174,6 +3174,17 @@ void ToGLSL::TranslateInstruction(Instruction* psInst, bool isEmbedded /* = fals
         }
         case OPCODE_RET:
         {
+            if ((psContext->psShader->eShaderType == VERTEX_SHADER) && (psContext->flags & HLSLCC_FLAG_GLPOSITION_Y_INVERT))
+            {
+                if (psContext->flags & HLSLCC_FLAG_INCLUDE_INSTRUCTIONS_COMMENTS)
+                {
+                    psContext->AddIndentation();
+                    bcatcstr(glsl, "//FLIPY\n");
+                }
+                psContext->AddIndentation();
+                bcatcstr(glsl, "gl_Position.y = -gl_Position.y;\n");
+            }
+
             if (psContext->flags & HLSLCC_FLAG_INCLUDE_INSTRUCTIONS_COMMENTS)
             {
                 psContext->AddIndentation();
