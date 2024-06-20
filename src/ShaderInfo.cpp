@@ -26,10 +26,10 @@ int ShaderInfo::GetResourceFromBindingPoint(const ResourceGroup eGroup, uint32_t
 {
     size_t i;
     const size_t ui32NumBindings = psResourceBindings.size();
-    const ResourceBinding* psBindings = &psResourceBindings[0];
 
     for (i = 0; i < ui32NumBindings; ++i)
     {
+        const ResourceBinding* psBindings = &psResourceBindings[0];
         if (ResourceTypeToResourceGroup(psBindings[i].eType) == eGroup)
         {
             if (ui32BindPoint >= psBindings[i].ui32BindPoint && ui32BindPoint < (psBindings[i].ui32BindPoint + psBindings[i].ui32BindCount))
