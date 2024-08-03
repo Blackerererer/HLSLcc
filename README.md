@@ -1,6 +1,6 @@
 # Customization
 - Added support for gl_Position.y inversion.
-- Changed uniform buffer layouts to shared from packed.
+- Changed uniform buffer layouts to shared from std140.
 - Added crash protection from empty RDEF.
 
 # HLSLcc
