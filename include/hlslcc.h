@@ -756,7 +756,8 @@ static const unsigned int HLSLCC_FLAG_METAL_SHADOW_SAMPLER_LINEAR = 0x80000;
 // If set, avoid emit atomic counter (ARB_shader_atomic_counters) and use atomic functions provided by ARB_shader_storage_buffer_object instead.
 static const unsigned int HLSLCC_FLAG_AVOID_SHADER_ATOMIC_COUNTERS = 0x100000;
 
-// Unused 0x200000;
+// If set, do not use std140, but emit shared layout
+static const unsigned int HLSLCC_FLAG_GLSL_USE_SHARED_LAYOUT = 0x200000;
 
 // If set, this shader uses the GLSL extension EXT_shader_framebuffer_fetch
 static const unsigned int HLSLCC_FLAG_SHADER_FRAMEBUFFER_FETCH = 0x400000;

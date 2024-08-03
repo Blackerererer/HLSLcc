@@ -686,7 +686,9 @@ bool ToGLSL::Translate()
         {
             // This value will be replaced at runtime with 0 if we need to disable explicit uniform locations.
             bcatcstr(glsl, "#define UNITY_SUPPORTS_UNIFORM_LOCATION 1\n");
-            bcatcstr(glsl, "#if UNITY_SUPPORTS_UNIFORM_LOCATION\n#define UNITY_LOCATION(x) layout(location = x)\n#define UNITY_BINDING(x) layout(binding = x, shared)\n#else\n#define UNITY_LOCATION(x)\n#define UNITY_BINDING(x) layout(shared)\n#endif\n");
+	    const char* layoutString = (psContext->flags & HLSLCC_FLAG_GLSL_USE_SHARED_LAYOUT) ? "shared" : "std140";
+            bformata(glsl, "#if UNITY_SUPPORTS_UNIFORM_LOCATION\n#define UNITY_LOCATION(x) layout(location = x)\n#define UNITY_BINDING(x) layout(binding = x, %s)\n#else\n#define UNITY_LOCATION(x)\n#define UNITY_BINDING(x) layout(%s)\n#endif\n", layoutString, layoutString);
+            //bcatcstr(glsl, "#if UNITY_SUPPORTS_UNIFORM_LOCATION\n#define UNITY_LOCATION(x) layout(location = x)\n#define UNITY_BINDING(x) layout(binding = x, std140)\n#else\n#define UNITY_LOCATION(x)\n#define UNITY_BINDING(x) layout(shared)\n#endif\n");
         }
     }
 

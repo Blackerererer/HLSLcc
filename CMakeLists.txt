@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 2.8)
 project(HLSLcc)
 
 option(HLSLCC_LIBRARY_SHARED "Build shared library instead of static." ON)
+option(HLSLCC_LIBRARY_PIC "Build HLSLcc with PIC." ON)
 
 file(GLOB HLSLCC_HDRS "${CMAKE_CURRENT_SOURCE_DIR}/include/*")
 set(HLSLCC_SRC
@@ -39,6 +40,10 @@ if(HLSLCC_LIBRARY_SHARED)
 else(HLSLCC_LIBRARY_SHARED)
 	add_library(hlslcc STATIC ${HLSLCC_SRC})
 endif(HLSLCC_LIBRARY_SHARED)
+
+if (HLSLCC_LIBRARY_PIC)
+	set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+endif(HLSLCC_LIBRARY_PIC)
 
 target_include_directories(hlslcc
     PUBLIC

@@ -947,7 +947,11 @@ void ToGLSL::DeclareUBOConstants(const uint32_t ui32BindingPoint, const Constant
             bformata(glsl, "UNITY_BINDING(%d) ", slot);
         }
         else
-            bcatcstr(glsl, "layout(std140) ");
+	{
+	    const char* layoutString = (psContext->flags & HLSLCC_FLAG_GLSL_USE_SHARED_LAYOUT) ? "shared" : "std140";
+	    bformata(glsl, "layout(%s) ", layoutString);
+            //bcatcstr(glsl, "layout(std140) ");
+	}
 
         if (slot != 0xffffffff && !isKnown && UseReflection(psContext))
         {
@@ -2554,7 +2558,9 @@ void ToGLSL::TranslateDeclaration(const Declaration* psDecl)
                     bformata(glsl, "UNITY_LOCATION(%d) ", actualBindingPoint);
                 }
 
-                bformata(glsl, "layout(std140) uniform %s {\n\tvec4 data[%d];\n} cb%d;\n", name, psOperand->aui32ArraySizes[1], ui32BindingPoint);
+		const char* layoutString = (psContext->flags & HLSLCC_FLAG_GLSL_USE_SHARED_LAYOUT) ? "shared" : "std140";               
+		bformata(glsl, "layout(%s) uniform %s {\n\tvec4 data[%d];\n} cb%d;\n", layoutString, name, psOperand->aui32ArraySizes[1], ui32BindingPoint);
+		//bformata(glsl, "layout(std140) uniform %s {\n\tvec4 data[%d];\n} cb%d;\n", name, psOperand->aui32ArraySizes[1], ui32BindingPoint);
                 break;
             }
 
